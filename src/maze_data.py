@@ -14,7 +14,7 @@ maze_data = [    # 26 x 21
     "XXXXXXXXXXXXX           XX",
     "XXXXXXXXXXXXX XX         X",
     "XXXXXXX      XXXXXXXX    X",
-    "XXXXXX       XXXXXXXX    X",
+    "XXXXXX       XXXXXXXXF   X",
     "XXXXXX       XX     X    X",
     "X                        X",
     "XXXXXX                   X",
