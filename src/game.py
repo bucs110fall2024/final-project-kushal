@@ -72,7 +72,7 @@ while True:
 
         # Update snakes and fire
         maze.update_snakes()
-        maze.fires.update()
+        maze.update_fires()
 
         # Check for collisions with diamonds
         if pygame.sprite.spritecollide(player, maze.diamonds, dokill=True):

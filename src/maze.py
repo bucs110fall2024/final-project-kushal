@@ -41,7 +41,7 @@ class Maze:
                     snake = Snake(x, y, 'horizontal_left')
                     self.snakes.add(snake)
                 elif cell == 'F':
-                    fire = Fire(x, y)
+                    fire = Fire(x, y, (x, y))
                     self.fires.add(fire)
                 elif cell == 'b':
                     ball = Ball(x, y)
@@ -61,6 +61,10 @@ class Maze:
     def update_snakes(self):
         for snake in self.snakes:
             snake.update(self.walls, self.bushes, self.diamonds, self.balls)
+
+    def update_fires(self):
+        for fire in self.fires:
+            fire.update(self.walls, self.fires)
 
     def reset(self):
         self.walls.empty()
