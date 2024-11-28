@@ -8,7 +8,7 @@ maze_data = [    # 26 x 21
     "XXX     X       XX   XXXXX",
     "XX         XXXX XXX XXXXXX",
     "XX X  XXXXXXXXX XXX XXXXXX",
-    "XX                        ",
+    "XX            X         KX",
     "XXXX    XXXXX XXXXXXXXXXXX",
     "XXXXXXXXXXXXX          XXX",
     "XXXXXXXXXXXXX           XX",
@@ -16,7 +16,7 @@ maze_data = [    # 26 x 21
     "XXXXXXX      XXXXXXXX    X",
     "XXXXXX       XXXXXXXXF   X",
     "XXXXXX       XX     X    X",
-    "X                        X",
+    "XS                       X",
     "XXXXXX                   X",
     "XXXXXXXXXXXXXXXXXXXXXXXXXX",
     "XXXXXXXXXXXXXXXXXXXXXXXXXX"

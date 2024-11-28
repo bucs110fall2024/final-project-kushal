@@ -11,7 +11,7 @@ pygame.display.set_caption("Diamond Rush")
 clock = pygame.time.Clock()
 
 maze = Maze(WIDTH, HEIGHT)
-player = Player(128, 64, 32)
+player = Player(maze.start_pos[0], maze.start_pos[1], 32)
 
 start_screen = True
 end_screen = False
@@ -38,7 +38,7 @@ def draw_end_screen():
 
 def reset_game():
     global player, score, start_screen, end_screen
-    player = Player(128, 64, 32)
+    player = Player(maze.start_pos[0], maze.start_pos[1], 32)
     score = 0
     start_screen = False
     end_screen = False
@@ -93,6 +93,10 @@ while True:
         # Check for collisions with bushes
         if pygame.sprite.spritecollide(player, maze.bushes, dokill=True):
             pass  # Handle bush breaking logic here
+
+        # Check if the player reaches the end point
+        if player.rect.collidepoint(maze.end_pos):
+            end_screen = True
 
         draw_score()
 
