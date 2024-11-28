@@ -17,6 +17,8 @@ class Maze:
         self.fires = pygame.sprite.Group()
         self.balls = pygame.sprite.Group()
         self.bushes = pygame.sprite.Group()
+        self.background_image = pygame.image.load('../assets/graphics/grass.png').convert()
+        self.background_image = pygame.transform.scale(self.background_image, (width, height))
         self.create_maze()
 
     def create_maze(self):
@@ -51,6 +53,7 @@ class Maze:
                     self.bushes.add(bush)
 
     def draw(self, screen):
+        screen.blit(self.background_image, (0, 0))
         self.walls.draw(screen)
         self.diamonds.draw(screen)
         self.snakes.draw(screen)
