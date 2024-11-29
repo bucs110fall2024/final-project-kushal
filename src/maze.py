@@ -3,7 +3,6 @@ from wall import Wall
 from diamond import Diamond
 from snake import Snake
 from fire import Fire
-from ball import Ball
 from bush import Bush
 from maze_data import maze_data
 
@@ -15,7 +14,6 @@ class Maze:
         self.diamonds = pygame.sprite.Group()
         self.snakes = pygame.sprite.Group()
         self.fires = pygame.sprite.Group()
-        self.balls = pygame.sprite.Group()
         self.bushes = pygame.sprite.Group()
         self.start_pos = None
         self.end_pos = None
@@ -47,9 +45,6 @@ class Maze:
                 elif cell == 'F':
                     fire = Fire(x, y, (x, y))
                     self.fires.add(fire)
-                elif cell == 'b':
-                    ball = Ball(x, y)
-                    self.balls.add(ball)
                 elif cell == 'B':
                     bush = Bush(x, y)
                     self.bushes.add(bush)
@@ -64,12 +59,11 @@ class Maze:
         self.diamonds.draw(screen)
         self.snakes.draw(screen)
         self.fires.draw(screen)
-        self.balls.draw(screen)
         self.bushes.draw(screen)
 
     def update_snakes(self):
         for snake in self.snakes:
-            snake.update(self.walls, self.bushes, self.diamonds, self.balls)
+            snake.update(self.walls, self.bushes, self.diamonds)
 
     def update_fires(self):
         for fire in self.fires:
@@ -80,6 +74,5 @@ class Maze:
         self.diamonds.empty()
         self.snakes.empty()
         self.fires.empty()
-        self.balls.empty()
         self.bushes.empty()
         self.create_maze()

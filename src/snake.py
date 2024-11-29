@@ -20,14 +20,14 @@ class Snake(pygame.sprite.Sprite):
         for key in self.images:
             self.images[key] = pygame.transform.smoothscale(self.images[key], (32, 32))
 
-    def update(self, walls, bushes, diamonds, balls):
+    def update(self, walls, bushes, diamonds):
         self.timer += 1
         if self.timer >= 60:  # Move every second
             self.timer = 0
             next_pos = self.rect.move(0, self.speed) if self.direction in ['vertical_down', 'vertical_up'] else self.rect.move(self.speed, 0)
             temp_sprite = pygame.sprite.Sprite()
             temp_sprite.rect = next_pos
-            if pygame.sprite.spritecollideany(temp_sprite, walls) or pygame.sprite.spritecollideany(temp_sprite, bushes) or pygame.sprite.spritecollideany(temp_sprite, diamonds) or pygame.sprite.spritecollideany(temp_sprite, balls):
+            if pygame.sprite.spritecollideany(temp_sprite, walls) or pygame.sprite.spritecollideany(temp_sprite, bushes) or pygame.sprite.spritecollideany(temp_sprite, diamonds):
                 self.flip_direction()
                 next_pos = self.rect.move(0, self.speed) if self.direction in ['vertical_down', 'vertical_up'] else self.rect.move(self.speed, 0)
             self.rect = next_pos
