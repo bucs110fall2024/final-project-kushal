@@ -19,6 +19,8 @@ class Maze:
         self.end_pos = None
         self.background_image = pygame.image.load('../assets/graphics/grass.png').convert()
         self.background_image = pygame.transform.scale(self.background_image, (width, height))
+        self.point_image = pygame.image.load('../assets/graphics/point.png').convert_alpha()
+        self.point_image = pygame.transform.smoothscale(self.point_image, (32, 32))
         self.create_maze()
 
     def create_maze(self):
@@ -60,6 +62,12 @@ class Maze:
         self.snakes.draw(screen)
         self.fires.draw(screen)
         self.bushes.draw(screen)
+
+        # Draw start and end points
+        if self.start_pos:
+            screen.blit(self.point_image, self.start_pos)
+        if self.end_pos:
+            screen.blit(self.point_image, self.end_pos)
 
     def update_snakes(self):
         for snake in self.snakes:

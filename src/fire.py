@@ -8,7 +8,6 @@ class Fire(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(x, y))
         self.initial_pos = initial_pos
         self.timer = 0
-        self.spread_timer = 0
         self.spreading = True
 
     def update(self, walls, fire_group):
@@ -21,14 +20,12 @@ class Fire(pygame.sprite.Sprite):
                 temp_sprite.rect = next_pos
                 if pygame.sprite.spritecollideany(temp_sprite, walls):
                     self.spreading = False
-                    self.spread_timer = 60  # Wait for 1 second before restarting the cycle
-                    fire_group.empty()  # Remove all fires
-                    fire_group.add(Fire(self.initial_pos[0], self.initial_pos[1], self.initial_pos))  # Restart the cycle with the original fire
+                    # Remove all fires in the current line
+                    for fire in fire_group:
+                        if fire.rect.y == self.rect.y:
+                            fire_group.remove(fire)
+                    # Restart the cycle with the original fire
+                    fire_group.add(Fire(self.initial_pos[0], self.initial_pos[1], self.initial_pos))
                 else:
                     new_fire = Fire(next_pos.x, next_pos.y, self.initial_pos)
                     fire_group.add(new_fire)
-            else:
-                self.spread_timer -= 1
-                if self.spread_timer <= 0:
-                    self.spreading = True
-                    self.spread_timer = 0
