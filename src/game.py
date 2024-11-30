@@ -33,13 +33,39 @@ def draw_start_screen():
     screen.blit(start_text, text_rect)
 
 def draw_end_screen():
-    end_text = font.render(f"Level {current_level} Complete! Score: {score}", False, (255, 255, 255))
-    text_rect = end_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
-    screen.blit(end_text, text_rect)
+    if player.rect.collidepoint(maze.end_pos):
+        if current_level < 2:
+            end_text = font.render(f"Level {current_level} Complete! Score: {score}", False, (255, 255, 255))
+            text_rect = end_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+            screen.blit(end_text, text_rect)
 
-    next_level_text = font.render(f"Press SPACE to Move to Level {current_level + 1}", False, (255, 255, 255))
-    text_rect = next_level_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
-    screen.blit(next_level_text, text_rect)
+            next_level_text = font.render(f"Press SPACE to Move to Level {current_level + 1}", False, (255, 255, 255))
+            text_rect = next_level_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+            screen.blit(next_level_text, text_rect)
+        else:
+            end_text = font.render(f"Congratulations! You've completed all levels!", False, (255, 255, 255))
+            text_rect = end_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
+            screen.blit(end_text, text_rect)
+
+            score_text = font.render(f"Final Score: {score}", False, (255, 255, 255))
+            text_rect = score_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+            screen.blit(score_text, text_rect)
+
+            thank_you_text = font.render("Thank you for playing!", False, (255, 255, 255))
+            text_rect = thank_you_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+            screen.blit(thank_you_text, text_rect)
+
+            restart_text = font.render("Press SPACE to Start from Level 1", False, (255, 255, 255))
+            text_rect = restart_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+            screen.blit(restart_text, text_rect)
+    else:
+        end_text = font.render(f"Game Over! Score: {score}", False, (255, 255, 255))
+        text_rect = end_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
+        screen.blit(end_text, text_rect)
+
+        restart_text = font.render("Press SPACE to Restart", False, (255, 255, 255))
+        text_rect = restart_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+        screen.blit(restart_text, text_rect)
 
 def draw_restart_message():
     restart_text = font.render("Press R to Restart", False, (255, 255, 255))
@@ -48,9 +74,10 @@ def draw_restart_message():
 
 def reset_game():
     global player, score, start_screen, end_screen, current_level, maze
-    if end_screen:
-        current_level += 1
-        if current_level > 2:
+    if player.rect.collidepoint(maze.end_pos):
+        if current_level < 2:
+            current_level += 1
+        else:
             current_level = 1
     maze = Maze(WIDTH, HEIGHT, current_level)
     player = Player(maze.start_pos[0], maze.start_pos[1], 32)
