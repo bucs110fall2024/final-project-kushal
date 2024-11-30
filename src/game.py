@@ -22,6 +22,9 @@ diamond_image = pygame.image.load('../assets/graphics/diamond.png').convert_alph
 text_height = font.get_height()
 diamond_image = pygame.transform.smoothscale(diamond_image, (text_height, text_height))
 
+# Load diamond collect sound
+point_collect_sound = pygame.mixer.Sound('../assets/sounds/point_collect.wav')
+
 def draw_score():
     score_text = font.render(f"Score: {score}", False, (255, 255, 255))
     screen.blit(diamond_image, (10, 10))
@@ -120,6 +123,7 @@ while True:
         # Check for collisions with diamonds
         if pygame.sprite.spritecollide(player, maze.diamonds, dokill=True):
             score += 1
+            point_collect_sound.play()
 
         # Check for collisions with snakes
         if pygame.sprite.spritecollide(player, maze.snakes, dokill=False):
