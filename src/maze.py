@@ -4,10 +4,12 @@ from diamond import Diamond
 from snake import Snake
 from fire import Fire
 from bush import Bush
-from maze_data import maze_data
+import importlib.util
+import sys
+import os
 
 class Maze:
-    def __init__(self, width, height):
+    def __init__(self, width, height, level):
         self.width = width
         self.height = height
         self.walls = pygame.sprite.Group()
@@ -21,13 +23,25 @@ class Maze:
         self.background_image = pygame.transform.scale(self.background_image, (width, height))
         self.point_image = pygame.image.load('../assets/graphics/point.png').convert_alpha()
         self.point_image = pygame.transform.smoothscale(self.point_image, (32, 32))
+        self.load_level(level)
+
+    def load_level(self, level):
+        # Construct the path to the level file
+        level_file_path = os.path.join(os.path.dirname(__file__), f'../levels/level{level}.py')
+
+        # Load the level module
+        spec = importlib.util.spec_from_file_location(f'level{level}', level_file_path)
+        level_module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(level_module)
+
+        self.maze_data = level_module.maze_data
         self.create_maze()
 
     def create_maze(self):
         wall_image = pygame.image.load('../assets/graphics/stone.png')
         wall_image = pygame.transform.smoothscale(wall_image, (32, 32))
 
-        for row_index, row in enumerate(maze_data):
+        for row_index, row in enumerate(self.maze_data):
             for col_index, cell in enumerate(row):
                 x = col_index * 32
                 y = row_index * 32

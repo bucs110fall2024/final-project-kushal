@@ -10,7 +10,8 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Diamond Rush")
 clock = pygame.time.Clock()
 
-maze = Maze(WIDTH, HEIGHT)
+current_level = 1
+maze = Maze(WIDTH, HEIGHT, current_level)
 player = Player(maze.start_pos[0], maze.start_pos[1], 32)
 
 start_screen = True
@@ -32,13 +33,13 @@ def draw_start_screen():
     screen.blit(start_text, text_rect)
 
 def draw_end_screen():
-    end_text = font.render(f"Game Over! Score: {score}", False, (255, 255, 255))
+    end_text = font.render(f"Level {current_level} Complete! Score: {score}", False, (255, 255, 255))
     text_rect = end_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 50))
     screen.blit(end_text, text_rect)
 
-    restart_text = font.render("Press SPACE to Restart", False, (255, 255, 255))
-    text_rect = restart_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
-    screen.blit(restart_text, text_rect)
+    next_level_text = font.render(f"Press SPACE to Move to Level {current_level + 1}", False, (255, 255, 255))
+    text_rect = next_level_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
+    screen.blit(next_level_text, text_rect)
 
 def draw_restart_message():
     restart_text = font.render("Press R to Restart", False, (255, 255, 255))
@@ -46,12 +47,16 @@ def draw_restart_message():
     screen.blit(restart_text, text_rect)
 
 def reset_game():
-    global player, score, start_screen, end_screen
+    global player, score, start_screen, end_screen, current_level, maze
+    if end_screen:
+        current_level += 1
+        if current_level > 2:
+            current_level = 1
+    maze = Maze(WIDTH, HEIGHT, current_level)
     player = Player(maze.start_pos[0], maze.start_pos[1], 32)
     score = 0
     start_screen = False
     end_screen = False
-    maze.reset()
 
 while True:
     for event in pygame.event.get():

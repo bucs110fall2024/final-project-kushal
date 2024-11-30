@@ -1,0 +1,23 @@
+maze_data = [
+    "XXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XS                      KX",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "X  XXXXXXXXXXXXXXXXXXXXX X",
+    "X                        X",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXX",
+    "XXXXXXXXXXXXXXXXXXXXXXXXXX"
+]
