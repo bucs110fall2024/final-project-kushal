@@ -7,7 +7,7 @@ pygame.init()
 
 WIDTH, HEIGHT = 832, 672
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Diamond Rush")
+pygame.display.set_caption("Diamond Dash")
 clock = pygame.time.Clock()
 
 current_level = 1
@@ -25,14 +25,22 @@ diamond_image = pygame.transform.smoothscale(diamond_image, (text_height, text_h
 # Load diamond collect sound
 point_collect_sound = pygame.mixer.Sound('../assets/sounds/point_collect.wav')
 
+# Load the logo image
+logo_image = pygame.image.load('../assets/graphics/logo.png').convert_alpha()
+logo_image = pygame.transform.smoothscale(logo_image, (200, 200))  # Adjust the size as needed
+
 def draw_score():
     score_text = font.render(f"Score: {score}", False, (255, 255, 255))
     screen.blit(diamond_image, (10, 10))
     screen.blit(score_text, (10 + text_height + 10, 10))
 
 def draw_start_screen():
+    # Draw the logo
+    logo_rect = logo_image.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
+    screen.blit(logo_image, logo_rect)
+
     start_text = font.render("Press SPACE to Play", False, (255, 255, 255))
-    text_rect = start_text.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    text_rect = start_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 50))
     screen.blit(start_text, text_rect)
 
 def draw_end_screen():
