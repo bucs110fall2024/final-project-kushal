@@ -22,12 +22,10 @@ diamond_image = pygame.image.load('../assets/graphics/diamond.png').convert_alph
 text_height = font.get_height()
 diamond_image = pygame.transform.smoothscale(diamond_image, (text_height, text_height))
 
-# Load diamond collect sound
 point_collect_sound = pygame.mixer.Sound('../assets/sounds/point_collect.wav')
 
-# Load the logo image
 logo_image = pygame.image.load('../assets/graphics/logo.png').convert_alpha()
-logo_image = pygame.transform.smoothscale(logo_image, (200, 200))  # Adjust the size as needed
+logo_image = pygame.transform.smoothscale(logo_image, (200, 200))  
 
 def draw_score():
     score_text = font.render(f"Score: {score}", False, (255, 255, 255))
@@ -35,7 +33,6 @@ def draw_score():
     screen.blit(score_text, (10 + text_height + 10, 10))
 
 def draw_start_screen():
-    # Draw the logo
     logo_rect = logo_image.get_rect(center=(WIDTH // 2, HEIGHT // 2 - 100))
     screen.blit(logo_image, logo_rect)
 
@@ -96,6 +93,7 @@ def reset_game():
     start_screen = False
     end_screen = False
 
+# this is your main loop
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -124,28 +122,22 @@ while True:
         maze.draw(screen)
         player.draw(screen)
 
-        # Update snakes and fire
         maze.update_snakes()
         maze.update_fires()
 
-        # Check for collisions with diamonds
         if pygame.sprite.spritecollide(player, maze.diamonds, dokill=True):
             score += 1
             point_collect_sound.play()
 
-        # Check for collisions with snakes
         if pygame.sprite.spritecollide(player, maze.snakes, dokill=False):
             end_screen = True
 
-        # Check for collisions with fire
         if pygame.sprite.spritecollide(player, maze.fires, dokill=False):
             end_screen = True
 
-        # Check for collisions with bushes
         if pygame.sprite.spritecollide(player, maze.bushes, dokill=True):
-            pass  # Handle bush breaking logic here
+            pass  
 
-        # Check if the player reaches the end point
         if player.rect.collidepoint(maze.end_pos):
             end_screen = True
 
