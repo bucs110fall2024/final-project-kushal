@@ -9,7 +9,15 @@ import sys
 import os
 
 class Maze:
+    """
+    This class handles creating and drawing the maze, as well as updating 
+    dynamic elements like snakes and fires.
+    """
+
     def __init__(self, width, height, level):
+        """
+        Initialize the Maze with the given width, height, and level.
+        """
         self.width = width
         self.height = height
         self.walls = pygame.sprite.Group()
@@ -17,8 +25,10 @@ class Maze:
         self.snakes = pygame.sprite.Group()
         self.fires = pygame.sprite.Group()
         self.bushes = pygame.sprite.Group()
+
         self.start_pos = None
         self.end_pos = None
+
         self.background_image = pygame.image.load('../assets/graphics/grass.png').convert()
         self.background_image = pygame.transform.scale(self.background_image, (width, height))
         self.point_image = pygame.image.load('../assets/graphics/point.png').convert_alpha()
@@ -26,10 +36,13 @@ class Maze:
         self.load_level(level)
 
     def load_level(self, level):
-        # Construct the path to the level file
+        """
+        Load the level data from the level file.
+        """
+        # connect to the level file
         level_file_path = os.path.join(os.path.dirname(__file__), f'../levels/level{level}.py')
 
-        # Load the level module
+        # open the level 
         spec = importlib.util.spec_from_file_location(f'level{level}', level_file_path)
         level_module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(level_module)
@@ -38,6 +51,9 @@ class Maze:
         self.create_maze()
 
     def create_maze(self):
+        """
+        Create the maze based on the level data.
+        """
         wall_image = pygame.image.load('../assets/graphics/stone.png')
         wall_image = pygame.transform.smoothscale(wall_image, (32, 32))
 
@@ -70,6 +86,9 @@ class Maze:
                     self.end_pos = (x, y)
 
     def draw(self, screen):
+        """
+        Draw the maze and its elements on the screen.
+        """
         screen.blit(self.background_image, (0, 0))
         self.walls.draw(screen)
         self.diamonds.draw(screen)
@@ -77,21 +96,30 @@ class Maze:
         self.fires.draw(screen)
         self.bushes.draw(screen)
 
-        # Draw start and end points
+        # start and end points
         if self.start_pos:
             screen.blit(self.point_image, self.start_pos)
         if self.end_pos:
             screen.blit(self.point_image, self.end_pos)
 
     def update_snakes(self):
+        """
+        Snakes update in the maze.
+        """
         for snake in self.snakes:
             snake.update(self.walls, self.bushes, self.diamonds)
 
     def update_fires(self):
+        """
+        Fires update in the maze.
+        """
         for fire in self.fires:
             fire.update(self.walls, self.fires)
 
     def reset(self):
+        """
+        Restart the maze
+        """
         self.walls.empty()
         self.diamonds.empty()
         self.snakes.empty()

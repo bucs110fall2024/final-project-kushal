@@ -10,27 +10,27 @@ Introducing Diamond Dash, in this game you control a character who must navigate
 
 ##GUI Design
 ###Initial Design
-
+![alt text](image.png)
 
 ###Final Design
-
+![alt text](image-1.png)
 
 ##Program DesignAAAAA
 ###Features
 - Maze Navigation: Control your character to navigate through various mazes, picking up diamonds along the way.
-- Obstacle Avoidance: Be mindful of snakes and fires that move and spread, requiring quick thinking and strategic planning.
-- Multiple Levels: Enjoy a variety of levels with increasing difficulty, each featuring unique maze layouts and challenges.
+- Obstacle Avoidance: Avoid snakes and fires that move and spread.
+- Multiple Levels: Variety of levels with increasing difficulty, each featuring unique maze layouts and challenges.
 - Score Tracking: Keep track of your score based on the number of diamonds you collect.
-- Interactive Start and End Screens: Receive clear instructions and feedback through interactive start and end screens.
+- Interactive Start and End Screens: Receive clear instructions and feedback through start and end screens.
 
 ##Classes
-- Bush: Represents bushes in the game. These are static obstacles that you can pass through without any issues.
-- Diamond: Represents diamonds in the game. Collect these to boost your score!
-- Fire: Represents fire in the game. Fire spreads over time and can harm you if you touch it, so be careful!
-- Maze: Represents the maze in the game. This class handles creating and drawing the maze, as well as updating dynamic elements like snakes and fires.
-- Player: Represents you, the player! This class manages your movement and interactions within the game world.
-- Snake: Represents snakes in the game. Snakes move in specific directions and change course when they hit obstacles.
-- Wall: Represents walls in the game. These are static obstacles that you can't pass through.
+- Bush: These are static obstacles that you can pass through without any issues.
+- Diamond: Collect these to increase your score.
+- Fire: Fire spreads over time and can harm you if you touch it.
+- Maze: This class handles creating and drawing the maze, as well as updating dynamic elements like snakes and fires.
+- Player: This class manages your movement and interactions within the game.
+- Snake: Snakes move in specific directions and change course when they hit obstacles.
+- Wall: These are static obstacles that you can't pass through.
 
 ##ATP (Acceptance Test Procedure)
 | Step | Description |  Results |
